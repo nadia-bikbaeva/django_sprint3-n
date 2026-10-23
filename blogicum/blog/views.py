@@ -5,7 +5,6 @@ from .models import Post, Category
 def get_base_post_queryset(queryset=None):
     if queryset is None:
         queryset = Post.objects.all()
-        
     return queryset.select_related(
         'category', 'location', 'author'
     ).filter(
@@ -25,7 +24,6 @@ def category_posts(request, category_slug):
         is_published=True
     )
     post_list = get_base_post_queryset(category.posts.all())
-    
     return render(request, 'blog/category.html', {
         'category': category,
         'post_list': post_list
